@@ -2,7 +2,7 @@
 #include"Brain.h"
 #include"DicisionButton.h"
 
-DicisionButton::Button(int button_pin, BTN_MODE mode,void*function){
+Button::DicisionButton(int button_pin, BTN_MODE mode,void*function){
   if(mode == D_READ){
     PinNumber = button_pin;
     pinMode(PinNumber, INPUT);
@@ -12,5 +12,5 @@ DicisionButton::Button(int button_pin, BTN_MODE mode,void*function){
 }
 
 int Button::Read(){
-  return digitalRead(PinNumber);
+  return digitalRead(m_btn_pin);
 }

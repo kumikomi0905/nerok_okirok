@@ -1,16 +1,14 @@
 #pragma once
 
 typedef enum{
-  INTI,
-  COUNTDOWN,
-  GATE,
-  WAIT,
+  INTI,         //初期状態
+  WAIT,         //待機状態
 }MODE;
 
 typedef enum{
-  ENTRY,
-  DO,
-  EXIT,
+  ENTRY,        //エントリー
+  DO,           //ドゥー 
+  EXIT,         //イグジット
 }ACTION_STATE;
 
 
