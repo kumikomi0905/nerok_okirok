@@ -11,7 +11,6 @@ Led::Led(int pin, int num) {
 }
 
 //点灯機能
-void Led::Getup() {
 
   //接続されているLEDの個数分順番に発行情報を送る
   for (int i = 0; i < pixels.numPixels(); i++) {
