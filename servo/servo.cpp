@@ -1,4 +1,5 @@
 #include<Arduino.h>
+#include "servo.h"
 
 //#define Servo_PIN 〇 //あとで記述　サーボピン番号
 
