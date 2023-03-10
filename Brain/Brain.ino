@@ -1,3 +1,7 @@
+#include "Brain.h"
+#include "DicisionButton.h"
+
+
 void setup() {
   // put your setup code here, to run once:
 
@@ -7,22 +11,21 @@ int mode;
 
 void loop() {
   // put your main code here, to run repeatedly:
- Button(int button_pin, BTN_MODE mode, void*function);
-
+  
+/* ボタンモード変更関数　割り込み */
+  if(/* ピン番号 */){
+ Button(int /* ピン番号 */, BTN_MODE INTERRPUT, void*modeChangePush);
+}
 
 }
 
 
-modeChangePush(int mode)void{
+void modeChangePush(int mode){
 //デジタルピン？番のスイッチが押された場合にはモード設定に入る
-        if(chatteringCut_pullupPin(2)){
             mode++;
             if(3<mode) mode=0;
-        }
-
-            
-//デジタルピン？番のスイッチが押された場合にはモードチェンジ設定する
-        if(mode && chatteringCut_pullupPin(3)){
+        
+//モードチェンジ設定する
 
             switch (mode){
                 case 1:
@@ -35,5 +38,5 @@ modeChangePush(int mode)void{
                   
                   break;
             }
-        }
+        
 }
