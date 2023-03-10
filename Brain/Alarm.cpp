@@ -2,8 +2,6 @@
 #include "DFRobotDFPlayerMini.h"
 #include "SoftwareSerial.h"
 
-
-
 void Alarm::init_player() {
 
   /* MP3プレーヤー DFPLayer */
@@ -33,6 +31,7 @@ void Alarm::init_player() {
 void Alarm::init(int buzzer_pin) {
   Buzzer_Pin = buzzer_pin;
   pinMode(Buzzer_Pin, INPUT);
+  init_player();
 }
 
 void buzzer_start() {             //音楽を再生
