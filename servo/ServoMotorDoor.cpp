@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include"ServoMotorDoor.h"
-#include "servo.h"
+include "servo.h"
 
 //サイト参考 https://burariweb.info/electronic-work/arduino-learning/aruduino-servomotor-control.html#i-3
 
