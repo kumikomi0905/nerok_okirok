@@ -1,11 +1,10 @@
-pragma once
-include<ESP32Servo.h>
+#include "servo.h"
 
 class servo {
 
   private:
 
-    Servo servo;    //Servoクラスからインスタンスを生成
+    Servo servo;    
     int servo_pin;
 
     int preferenceAngle = 90;    //初期設定角度　　
