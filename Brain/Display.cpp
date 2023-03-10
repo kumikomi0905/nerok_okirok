@@ -1,9 +1,12 @@
+#include <I2CLiquidCrystal.h>
+#include <mglcd.h>
+
 #include <Arduino.h>
 #include "Display.h"
 #include <Wire.h>
 
 // 初期化処理
-void Lcd::init(){
+void Lcd::init() {
   Wire.begin();
   init_LCD();
 }
@@ -49,4 +52,8 @@ void Lcd::init_LCD() {
   delay(20);
   writeCommand(0x0C);
   delay(20);
+}
+
+int wakeUp_setTime() {
+
 }
