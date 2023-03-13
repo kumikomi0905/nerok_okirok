@@ -11,7 +11,7 @@ class DicisionButton {
     int PinNumber;
 
   public:
-    Button(int button_pin, BTN_MODE mode, void*function);
+    DicisionButton(int button_pin, BTN_MODE mode, void*function);
     int Read();
 };
 
