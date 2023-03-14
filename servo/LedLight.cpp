@@ -1,8 +1,15 @@
 #include <Arduino.h>
 #include"LedLight.h"
 
+
+/*【ToDo】光量調節はタイマー関数を使う
+ * (理由)ディレイの間は割り込みボタン以外なにも作動しない
+ *＋割り込みでモードが変わった場合、戻ってきたときに
+ *次の光量に移るから時間間隔が10分じゃなくなる
+ */
+
 //コンストラクタ
-LedLight(){
+LedLight::LedLight(){
   pinMode(GREENPIN, OUTPUT);
   pinMode(REDPIN, OUTPUT);
   pinMode(BLUEPIN, OUTPUT);
@@ -39,7 +46,6 @@ void LedLight::ledOff(){
 
 void LedLight::ledSleepy(){
   //Led10秒点滅
-  void loop() {
    for (int i=0; i <= 10; i++){
       digitalWrite(GREENPIN,HIGH);
       digitalWrite(REDPIN,HIGH);

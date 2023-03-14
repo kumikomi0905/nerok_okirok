@@ -1,4 +1,6 @@
 #pragma once
+#include "Servo.h"
+
 
 class ServoMotorDoor
 {
