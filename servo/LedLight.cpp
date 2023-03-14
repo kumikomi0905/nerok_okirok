@@ -79,9 +79,5 @@ void LedLight::ledSleepy(){
   //消灯
       digitalWrite(GREENPIN,LOW);
       digitalWrite(REDPIN,LOW);
-
-
-   
-  
   
 }

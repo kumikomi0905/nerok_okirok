@@ -1,6 +1,11 @@
 #pragma once
 
-//2021.4月A班のソースコード参考
+/*2021.4月A班のソースコード参考
+LED点灯　サイト〇https://fabkura.gitbooks.io/arduino-docs/content/chapter5.html
+〇https://www.fabshop.jp/%E3%80%90%E5%88%9D%E7%B4%9A%E7%B7%A8%E3%80%91ledx2%E
+5%80%8B%E3%82%92%E5%90%8C%E6%99%82%E7%82%B9%E6%BB%85%E3%83%BB%E4%BA%A4%E4%B
+A%92%E7%82%B9%E6%BB%85%E3%81%95%E3%81%9B%E3%81%A6%E3%81%BF%E3%82%88/
+LED明るさ調節　〇https://deviceplus.jp/arduino/arduino_f04/*/
 
 /*
  * 白を含めた7色の光が点灯する
