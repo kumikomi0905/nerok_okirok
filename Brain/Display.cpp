@@ -14,11 +14,11 @@ int timemode = 0;
 int decision;
 int timeHous;
 int timeMinute;
-/*
+
 decision = digitalRead( btn_3 );
 timeHous = digitalRead( btn_1 );
 timeMinute = digitalRead( btn_2 );
-*/
+
 // 初期化処理
 void Display::init() {
   Wire.begin();

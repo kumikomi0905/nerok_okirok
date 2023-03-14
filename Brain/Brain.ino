@@ -1,12 +1,14 @@
 #include "Brain.h"
 #include "DicisionButton.h"
 #include "CurrentTime.h"
+#include "Display.h"
 
-DicisionButton btn_1 = DicisionButton(int BTN_PIN1, BTN_MODE D_READ); /* 時間 */
-DicisionButton btn_2 = DicisionButton(int BTN_PIN2, BTN_MODE D_READ); /* 分*/
-DicisionButton btn_3 = DicisionButton(int BTN_PIN3, BTN_MODE D_READ); /* 決定 */
-DicisionButton btn_4 = DicisionButton(int BTN_PIN4, BTN_MODE INTERRPUT, void* modeChangePush); /* モード変更 */
-DicisionButton btn_5 = DicisionButton(int BTN_PIN5, BTN_MODE INTERRPUT, void*emergency); /* 緊急解除*/
+/* 後で記述 */
+DicisionButton btn_1 = DicisionButton(BTN_PIN1, D_READ, NULL); /* 時間 */
+DicisionButton btn_2 = DicisionButton(BTN_PIN2, D_READ, NULL); /* 分*/
+DicisionButton btn_3 = DicisionButton(BTN_PIN3, D_READ, NULL); /* 決定 */
+DicisionButton btn_4 = DicisionButton(BTN_PIN4, INTERRPUT, NULL); /* モード変更 */
+DicisionButton btn_5 = DicisionButton(BTN_PIN5, INTERRPUT, NULL); /* 緊急解除*/
 
 void setup() {
   // put your setup code here, to run once:

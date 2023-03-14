@@ -12,5 +12,5 @@ DicisionButton::DicisionButton(int button_pin, BTN_MODE mode,void*function){
 }
 
 int DicisionButton::Read(){
-  return digitalRead(m_btn_pin);
+  return digitalRead(PinNumber);
 }
