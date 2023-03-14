@@ -6,27 +6,27 @@
 #include <Wire.h>
 
 int WakeUp_Hour = 0;
-int WakeUp_Minute = 0;
+int WakeUp_Minutes = 0;
 int Bed_Hour = 0;
-int Bed_Minut = 0;
+int Bed_Minutes = 0;
 int timemode = 0;
 
 int decision;
 int timeHous;
 int timeMinute;
-
+/*
 decision = digitalRead( btn_3 );
 timeHous = digitalRead( btn_1 );
 timeMinute = digitalRead( btn_2 );
-
+*/
 // 初期化処理
-void Lcd::init() {
+void Display::init() {
   Wire.begin();
   init_LCD();
 }
 
 // 文字データ送信処理
-void Lcd::writeData(byte t_data)
+void Display::writeData(byte t_data)
 {
   Wire.beginTransmission(LCD_ADRS);
   Wire.write(0x40);
@@ -36,7 +36,7 @@ void Lcd::writeData(byte t_data)
 }
 
 // コマンド送信処理
-void Lcd::writeCommand(byte t_command)
+void Display::writeCommand(byte t_command)
 {
   Wire.beginTransmission(LCD_ADRS);
   Wire.write(0x00);
@@ -46,7 +46,7 @@ void Lcd::writeCommand(byte t_command)
 }
 
 // LCDの初期化処理
-void Lcd::init_LCD() {
+void Display::init_LCD() {
   delay(100);
   writeCommand(0x38);
   delay(20);
@@ -68,8 +68,42 @@ void Lcd::init_LCD() {
   delay(20);
 }
 
+char moji_wakeUp[] = "キショウジカン　セッテイ";
+char moji_bed[] = "シュウシンジカン　セッテイ";
+
+/* 起床時間の画面表示（仮） */
+void Display::wakeUp_screen() {
+  char str[17];
+
+  writeCommand(0x02);        //1行目
+  for (int i = 0; i < sizeof(moji_wakeUp); i++) {
+    writeData(moji_wakeUp[i]);
+  }
+  writeCommand(0x40 + 0x80); // 2LINE TOP 2行目
+  for (int i = 0; i < 16; i++) {
+    sprintf(str, "%002d:", WakeUp_Hour);
+    sprintf(str + 3, "%002d:", WakeUp_Minutes);
+  }
+}
+
+/* 就寝時間の画面表示（仮） */
+void Display::bed_screen() {
+  char str[17];
+
+  writeCommand(0x02);        //1行目
+  for (int i = 0; i < sizeof(moji_wakeUp); i++) {
+    writeData(moji_bed[i]);
+  }
+  
+  writeCommand(0x40 + 0x80); // 2LINE TOP 2行目
+  for (int i = 0; i < 16; i++) {
+    sprintf(str, "%002d:", Bed_Hour);
+    sprintf(str + 3, "%002d:", Bed_Minutes);
+  }
+}
+
 /* 起床時間の時間設定ボタン */
-int wakeUp_setTime() {
+int Display::wakeUp_setTime() {
   //決定ボタンおされたら時間、分の移動
   if (decision == HIGH) {
     timemode++;
@@ -89,20 +123,22 @@ int wakeUp_setTime() {
       break;
     case 2:
       if (timeMinute == HIGH) {
-        WakeUp_Minute++;
-        if (WakeUp_Minute > 59) {
-          WakeUp_Minute = 0;
+        WakeUp_Minutes++;
+        if (WakeUp_Minutes > 59) {
+          WakeUp_Minutes = 0;
         }
       }
     default:
       break;
   }
+  wakeUp_screen();
 
-  return WakeUp_Hour, WakeUp_Minute;
+  return WakeUp_Hour, WakeUp_Minutes;
 
 }
+
 /* 就寝時間の時間設定ボタンボタン */
-int bed_setTime() {
+int Display::bed_setTime() {
   //決定ボタンおされたら時間、分の移動
 
   if (decision == HIGH) {
@@ -123,15 +159,16 @@ int bed_setTime() {
       break;
     case 2:
       if (timeMinute == HIGH) {
-        Bed_Minut++;
-        if (Bed_Minut > 59) {
-          Bed_Minut = 0;
+        Bed_Minutes++;
+        if (Bed_Minutes > 59) {
+          Bed_Minutes = 0;
         }
       }
     default:
       break;
   }
+  bed_screen();
 
-  return Bed_Hour, Bed_Minut;
+  return Bed_Hour, Bed_Minutes;
 
 }
