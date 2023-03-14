@@ -16,4 +16,6 @@ class Display     // classの定義
     void writeCommand(byte t_command);    //コマンド送信処理（画面クリアやカーソル表示）
     int wakeUp_setTime();                 //起床時間のセット
     int bed_setTime();                    //就寝時間のセット
+    void wakeUp_screen();//仮
+    void bed_screen();   //仮 
 };
