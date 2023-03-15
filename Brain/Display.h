@@ -14,8 +14,13 @@ class Display     // classの定義
     void init();                          //初期化処理
     void writeData(byte t_data);          //文字データ送信処理
     void writeCommand(byte t_command);    //コマンド送信処理（画面クリアやカーソル表示）
-    int wakeUp_setTime();                 //起床時間のセット
-    int bed_setTime();                    //就寝時間のセット
-    void wakeUp_screen();//仮
-    void bed_screen();   //仮 
+    void cursorMove(int place);
+    void printString(String str);
+    
+    int wakeUp_setTime();                 //起床時間の設定
+    int bed_setTime();                    //就寝時間の設定
+    
+    void wakeUp_screen();                 //起床時間の画面表示
+    void bed_screen();                    //就寝時間の画面表示
+
 };

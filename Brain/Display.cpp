@@ -15,9 +15,9 @@ int decision;
 int timeHous;
 int timeMinute;
 
-decision = digitalRead( btn_3 );
-timeHous = digitalRead( btn_1 );
-timeMinute = digitalRead( btn_2 );
+//decision = digitalRead( btn_3 );
+//timeHous = digitalRead( btn_1 );
+//timeMinute = digitalRead( btn_2 );
 
 // 初期化処理
 void Display::init() {
@@ -68,38 +68,67 @@ void Display::init_LCD() {
   delay(20);
 }
 
-char moji_wakeUp[] = "キショウジカン　セッテイ";
-char moji_bed[] = "シュウシンジカン　セッテイ";
+void Display::cursorMove(int place){     //返却値なし　引数　整数型(カーソルを移動させたいアドレス)
+  writeCommand(place + 0x80);   //インストラクションコード 0x80 カーソル移動
+                                //それに移動させたいアドレスを足し合わせることで　そのアドレスにカーソルを移動させる
+                                // writeCommand(place + 0x80);　が  プログラム中に出てきてもインストラクションコードを分からないと読めない
+                                // cursorMoveなら名前から意味が想像しやすく　可読性　を上げることができる
+}
+
+void Display::printString(String str){
+  int i  = 0;
+  int len = str.length();
+
+  for(i = 0; i < len; i++){
+    writeData(str.charAt(i)); //CharAt()...引数で指定した位置の文字を返す
+    delay(1);
+  }
+}
+
+char moji_wakeUp[] = "WakeUpSetting";
+char moji_bed[] = "BedSetting";
+char koron[] = ":";
 
 /* 起床時間の画面表示（仮） */
 void Display::wakeUp_screen() {
-  char str[17];
 
-  writeCommand(0x02);        //1行目
+  writeCommand(0x01); //画面クリア
+  
+  cursorMove(0x00);        //1行目
   for (int i = 0; i < sizeof(moji_wakeUp); i++) {
     writeData(moji_wakeUp[i]);
   }
-  writeCommand(0x40 + 0x80); // 2LINE TOP 2行目
-  for (int i = 0; i < 16; i++) {
-    sprintf(str, "%002d:", WakeUp_Hour);
-    sprintf(str + 3, "%002d:", WakeUp_Minutes);
-  }
+  
+  cursorMove(0x44); // 2LINE TOP 2行目
+  
+  printString((String)WakeUp_Hour);
+  
+  cursorMove(0x47);
+  writeData(koron[0]);
+  
+  cursorMove(0x49);
+  printString((String)WakeUp_Minutes);
 }
 
 /* 就寝時間の画面表示（仮） */
 void Display::bed_screen() {
-  char str[17];
-
-  writeCommand(0x02);        //1行目
-  for (int i = 0; i < sizeof(moji_wakeUp); i++) {
+  
+  writeCommand(0x01); //画面クリア
+  
+  cursorMove(0x00);        //1行目
+  for (int i = 0; i < sizeof(moji_bed); i++) {
     writeData(moji_bed[i]);
   }
   
-  writeCommand(0x40 + 0x80); // 2LINE TOP 2行目
-  for (int i = 0; i < 16; i++) {
-    sprintf(str, "%002d:", Bed_Hour);
-    sprintf(str + 3, "%002d:", Bed_Minutes);
-  }
+  cursorMove(0x44); // 2LINE TOP 2行目
+  
+  printString((String)Bed_Hour);
+  
+  cursorMove(0x47);
+  writeData(koron[0]);
+  
+  cursorMove(0x49);
+  printString((String)Bed_Minutes);
 }
 
 /* 起床時間の時間設定ボタン */
@@ -167,7 +196,7 @@ int Display::bed_setTime() {
     default:
       break;
   }
-  bed_screen();
+  bed_setTime();
 
   return Bed_Hour, Bed_Minutes;
 
