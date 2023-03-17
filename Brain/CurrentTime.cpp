@@ -2,19 +2,19 @@
 #include"Brain.h"
 #include"CurrentTime_h"
 
-int time_Check(){
+int CurrentTime::time_Check(){
 if(){
 
 }
   
 }
 
-void setrealTime(){
+void CurrentTime::setrealTime(){
 
   
 }
 
-int send_CurrentTime(){
+int CurrentTime::send_CurrentTime(){
 
   
 }
