@@ -9,7 +9,7 @@ class CurrentTime {
 
   public:
     int Time_Check();
-    void setrealTime();
+    void setrealTime(int Rtc_year,int Rtc_mon,int Rtc_day,int Rtc_hour,int Rtc_min,int Rtc_sec);
     int send_CurrentTime();
 
 }

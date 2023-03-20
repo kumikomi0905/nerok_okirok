@@ -6,7 +6,7 @@
 
 BluetoothSerial SerialBT;
 
-bool judgment = true;
+int judgment = 1;
 
 void AnotherTerminal::Bluetooth_setup() {
 

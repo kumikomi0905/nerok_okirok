@@ -3,12 +3,12 @@
 class WifiConnect {
 
   private:
-  const char* ssid = "";
-  const char* password = "";
+  const char* ssid = "Tina";
+  const char* password = "Tina0107";
 
 
   public:
-  WiFi.begin(ssid, password);
-  int data_send();
-
+  void WiFi_setUp();
+  //WiFi.begin(ssid, password);
+  tm* data_send();
 };
