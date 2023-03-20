@@ -1,5 +1,5 @@
 #pragma once
-
+#include "BluetoothSerial.h"
 
 class AnotherTerminal {
 

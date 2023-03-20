@@ -4,10 +4,12 @@
 #include "Display.h"
 #include "AnotherTerminal.h"
 #include "WifiConnect.h"
+#include "BluetoothSerial.h"
 
 #include <time.h>
 #include <WiFi.h>
 #include <RTClib.h>
+
 
 //DicisionButtonクラスのインスタンス
 DicisionButton btn_1 = DicisionButton(BTN_PIN1, D_READ, NULL); /* 時間 */
@@ -19,6 +21,14 @@ DicisionButton btn_5 = DicisionButton(BTN_PIN5, INTERRPUT, NULL); /* 緊急解�
 //Displayクラスのインスタンス
 Display disp;
 
+//WifiConnectクラスのインスタンス
+WifiConnect Wifi;
+
+//CurrentTimeクラスのインスタンス
+CurrentTime Current;
+
+AnotherTerminal Bluetooth;
+
 void setup() {
   // put your setup code here, to run once:
   disp.init();
@@ -26,6 +36,9 @@ void setup() {
   //WifisetUP
   Serial.begin(115200);
   Wifi.WiFi_setUp();
+
+  //Bluetooth接続セット関数
+  Bluetooth.Bluetooth_setup();
 }
 
 int mode = 1;
@@ -51,9 +64,12 @@ void loop() {
                 tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday,
                 wd[tm->tm_wday],
                 tm->tm_hour, tm->tm_min, tm->tm_sec);
-                
+
   //リアルタイムクラックにデータを渡してセットする
-  Rtc.RTC_setup(tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);
+  Current.RTC_setup(tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);
+
+  //Bluetooth受信確認関数
+  Bluetooth.Signal_acquisition();
 
   /* モードチェンジ設定する */
   switch (mode) {
