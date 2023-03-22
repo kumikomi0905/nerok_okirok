@@ -71,10 +71,17 @@ void loop() {
   //Bluetooth受信確認関数
   Bluetooth.Signal_acquisition();
 
+  //時間チェック関数（起床時間）
+ Current.time_Check(WakeUp_Timehour,WakeUp_Timeminutes,tm->tm_hour,tm->tm_min);
+
+ //時間チェック関数（就寝時間）
+ Current.time_Check(Bed_Timehour,Bed_Timeminutes,tm->tm_hour,tm->tm_min);
+
   /* モードチェンジ設定する */
   switch (mode) {
     case 1:
-
+      /* 起床時間の画面表示 */
+      currentTime_SetScreent();
       break;
     case 2:
       wakeUp_SetButton();
@@ -83,6 +90,11 @@ void loop() {
       bed_SetButton();
       break;
   }
+}
+
+/* 起床時間の画面表示 */
+void currentTime_SetScreent() {
+  disp.currentTime_screen(tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);
 }
 
 /* 起床時間の設定 */
