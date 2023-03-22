@@ -1,20 +1,16 @@
-#include<Arduino.h>
-#include"Brain.h"
-#include"CurrentTime_h"
+#include <Arduino.h>
+#include"CurrentTime.h"
 
-int time_Check(){
-if(){
-
-}
+//時間比較
+CurrentTime::Time_Check(){
+  //現在時刻と各設定時間を比較
   
-}
+};
+//値の格納
+CurrentTime::setrealTime();
+//値の送信
+CurrentTime::send_CurrentTime();
 
-void setrealTime(){
-
-  
-}
-
-int send_CurrentTime(){
-
-  
-}
+//シナリオの現在時刻を確認
+//現在時刻の変数決まり次第Time_Check()で比較
+//
