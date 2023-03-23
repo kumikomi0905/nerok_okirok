@@ -6,7 +6,7 @@
 
 BluetoothSerial SerialBT;
 
-int judgment = 1;
+int Bluetooth_judgment = 1;
 
 void AnotherTerminal::Bluetooth_setup() {
 
@@ -29,7 +29,7 @@ int AnotherTerminal::Signal_acquisition() {
   if (SerialBT.available()) {
     if (SerialBT.read() == 'T') {
      //digitalWrite(14, HIGH);
-     return judgment;
+     return Bluetooth_judgment;
     }
   }
   delay(20);

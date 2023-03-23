@@ -105,3 +105,26 @@ void Display::timeHour_screen(int timeHour_sc) {
 void Display::timeMinutes_screen(int timeMinutes_sc) {
   printString((String)timeMinutes_sc);
 }
+
+/* 秒の時間表示 */
+void Display::timeSeconds_screen(int timeSeconds_sc){
+  printString((String)timeSeconds_sc);
+}
+
+/* 現在時間の画面表示 */
+void Display::currentTime_screen(int currentYear, int currentMonth, int currentDay, int currentHour ,int currentMinutes, int currentSeconds){
+  cursorMove(0x01);
+  //1行目にYear/Month/Dayを表示
+  printString((String)currentYear);
+  printString(slash);
+  printString((String)currentMonth);
+  printString(slash);
+  printString((String)currentDay);
+
+  cursorMove(0x44);
+  timeHour_screen(currentHour);
+  printString(koron);
+  timeMinutes_screen(currentMinutes);
+  printString(koron);
+  timeSeconds_screen(currentSeconds);
+}

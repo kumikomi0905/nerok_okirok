@@ -5,6 +5,9 @@
 #include "AnotherTerminal.h"
 #include "WifiConnect.h"
 #include "BluetoothSerial.h"
+#include "Alarm.h"
+#include "ServoMotorDoor.h"
+#include "LedLight.h"
 
 #include <time.h>
 #include <WiFi.h>
@@ -15,8 +18,9 @@
 DicisionButton btn_1 = DicisionButton(BTN_PIN1, D_READ, NULL); /* 時間 */
 DicisionButton btn_2 = DicisionButton(BTN_PIN2, D_READ, NULL); /* 分*/
 DicisionButton btn_3 = DicisionButton(BTN_PIN3, D_READ, NULL); /* 決定 */
-DicisionButton btn_4 = DicisionButton(BTN_PIN4, INTERRPUT, NULL); /* モード変更 */
-DicisionButton btn_5 = DicisionButton(BTN_PIN5, INTERRPUT, NULL); /* 緊急解除*/
+DicisionButton btn_4 = DicisionButton(BTN_PIN4, INTERRPUT, modeChangePush()); /* モード変更 */
+DicisionButton btn_5 = DicisionButton(BTN_PIN5, INTERRPUT, servo.emergency()); /* 緊急解除*/
+
 
 //Displayクラスのインスタンス
 Display disp;
@@ -27,7 +31,18 @@ WifiConnect Wifi;
 //CurrentTimeクラスのインスタンス
 CurrentTime Current;
 
+//AnotherTerminalクラスのインスタンス
 AnotherTerminal Bluetooth;
+
+//Alarmクラスのインスタンス
+Alarm alarm;
+
+//ServoMotorDoorクラスのインスタンス
+ServoMotorDoor servo;
+
+//LedLightクラスのインスタンス
+LedLight Led;
+
 
 void setup() {
   // put your setup code here, to run once:
@@ -69,12 +84,40 @@ void loop() {
   Current.RTC_setup(tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);
 
   //Bluetooth受信確認関数
-  Bluetooth.Signal_acquisition();
+  int Bluetooth_judgement = Bluetooth.Signal_acquisition();
+
+  //時間チェック関数（起床時間）
+  int WakeUp_judgement = Current.time_Check(WakeUp_Timehour, WakeUp_Timeminutes, tm->tm_hour, tm->tm_min);
+
+  //時間チェック関数（就寝時間）
+  int Bed_judgement = Current.time_Check(Bed_Timehour, Bed_Timeminutes, tm->tm_hour, tm->tm_min);
+
+  //起床時アラーム、サーボ、LED、稼働
+  if (WakeUp_judgement == 1) {
+    alarm.buzzer_start();
+    Led.ledGetup();
+  }
+
+  //就寝時アラーム、サーボ、LED、稼働
+  if (WakeUp_judgement == 1) {
+    servo.close();
+    Led.ledSleepy();
+  }
+
+  //サブ機よりボタンが押された時起床時の機能を止める
+  if (Bluetooth_judgement == 1) {
+    alarm.buzzerOff();
+    Led.off();
+    servo.open();
+  }
+
+
 
   /* モードチェンジ設定する */
   switch (mode) {
     case 1:
-
+      /* 起床時間の画面表示 */
+      currentTime_SetScreent();
       break;
     case 2:
       wakeUp_SetButton();
@@ -83,6 +126,11 @@ void loop() {
       bed_SetButton();
       break;
   }
+}
+
+/* 起床時間の画面表示 */
+void currentTime_SetScreent() {
+  disp.currentTime_screen(tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);
 }
 
 /* 起床時間の設定 */

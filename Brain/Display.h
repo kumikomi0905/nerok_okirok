@@ -16,7 +16,11 @@ class Display     // classの定義
     void printString(String str);
 
     void timeMode_screen(int modeNum);      //1行目に起床・就寝の文字列を表示
-    
+
     void timeHour_screen(int timeHour_sc);       //時の数字を表示
     void timeMinutes_screen(int timeMinutes_sc); //分の数字を表示
+    void timeSeconds_screen(int timeSeconds_sc); //秒の時間を表示
+
+    //現在時刻の画面表示
+    void currentTime_screen(int currentYear, int currentMonth, int currentDay, int currentHour , int currentMinutes, int currentSeconds);
 };
