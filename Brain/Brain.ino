@@ -84,7 +84,7 @@ void loop() {
   Current.RTC_setup(tm->tm_year + 1900, tm->tm_mon + 1, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);
 
   //Bluetooth受信確認関数
-  Bluetooth.Signal_acquisition();
+  int Bluetooth_judgement = Bluetooth.Signal_acquisition();
 
   //時間チェック関数（起床時間）
   int WakeUp_judgement = Current.time_Check(WakeUp_Timehour, WakeUp_Timeminutes, tm->tm_hour, tm->tm_min);
@@ -92,18 +92,25 @@ void loop() {
   //時間チェック関数（就寝時間）
   int Bed_judgement = Current.time_Check(Bed_Timehour, Bed_Timeminutes, tm->tm_hour, tm->tm_min);
 
-//起床時アラーム、サーボ、LED、稼働
+  //起床時アラーム、サーボ、LED、稼働
   if (WakeUp_judgement == 1) {
     alarm.buzzer_start();
-    servo.open();
     Led.ledGetup();
   }
-  
-//就寝時アラーム、サーボ、LED、稼働
+
+  //就寝時アラーム、サーボ、LED、稼働
   if (WakeUp_judgement == 1) {
     servo.close();
     Led.ledSleepy();
   }
+
+  //サブ機よりボタンが押された時起床時の機能を止める
+  if (Bluetooth_judgement == 1) {
+    alarm.buzzerOff();
+    Led.off();
+    servo.open();
+  }
+
 
 
   /* モードチェンジ設定する */
