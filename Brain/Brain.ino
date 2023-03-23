@@ -54,6 +54,9 @@ void setup() {
 
   //Bluetooth接続セット関数
   Bluetooth.Bluetooth_setup();
+
+  //Alarm初期設定
+  alarm.init();
 }
 
 int mode = 1;

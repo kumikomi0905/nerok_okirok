@@ -10,7 +10,7 @@ class Alarm{
   public:
     void init(int buzzer_pin);               //ブザーの初期化処理
     void buzzer_start();       //アラームスタート
-    void buzzerOff(bool alarm_on);   //アラームストップ
+    void buzzerOff();   //アラームストップ
 
 }
 

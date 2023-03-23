@@ -5,7 +5,7 @@
 void Alarm::init_player() {
 
   /* MP3プレーヤー DFPLayer */
-  SoftwareSerial mySoftwareSerial(/*ピン番号*/, /*ピン番号*/); // RX, TX   後で記述
+  SoftwareSerial mySoftwareSerial(10, 11); // RX, TX   後で記述
   DFRobotDFPlayerMini myDFPlayer;
 
 
@@ -28,27 +28,23 @@ void Alarm::init_player() {
 
 }
 
-void Alarm::init(int buzzer_pin) {
-  Buzzer_Pin = buzzer_pin;
+void Alarm::init() {
   pinMode(Buzzer_Pin, INPUT);
   init_player();
 }
 
 void buzzer_start() {             //音楽を再生
 
-  if (digitalRead(6) == HIGH) {
-    myDFPlayer.playFolder(/*ピン番号*/, /*ピン番号*/);//後で記述    1つ目の引数がフォルダ番号、2つ目の引数がフォルダの中のmp3の番号
-  }
+
+  myDFPlayer.play(1);//後で記述    1つ目の引数がフォルダ番号、2つ目の引数がフォルダの中のmp3の番号
+ //myDFPlayer.playFolder(/*フォルダー番号*/, /*MP3番号*/);//後で記述    1つ目の引数がフォルダ番号、2つ目の引数がフォルダの中のmp3の番号
 
 }
 
-void buzzerOff(bool alarm_on) {   //音楽が再生されていたら止まる
+void buzzerOff() {   //音楽が再生されていたら止まる
 
-  alarm_on = false;
-  if (alarm_on == !false) {
-    buzzer.stop();
-    digitalWrite(Buzzer_Pin, /*ピン番号*/);         //後で記述
 
-    digitalWrite(Buzzer_Pin, LOW);
-  }
+  myDFPlayer.pause();
+
+
 }

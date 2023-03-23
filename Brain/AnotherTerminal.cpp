@@ -6,7 +6,7 @@
 
 BluetoothSerial SerialBT;
 
-int Bluetooth_judgment = 1;
+volatile int Bluetooth_judgment = 1;
 
 void AnotherTerminal::Bluetooth_setup() {
 

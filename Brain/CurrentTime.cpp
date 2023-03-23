@@ -13,6 +13,8 @@
     //現在時刻と設定時間が一致したら1を返す
       judgement = 1;
 
+   }else{
+    judgement = 0;
    }
 
     return judgement;
