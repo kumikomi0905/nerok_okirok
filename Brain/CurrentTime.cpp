@@ -3,12 +3,12 @@
 #include"CurrentTime_h"
 #include <RTClib.h>
 
-  int time_Check(int wifi_time,int setting_time){
+  int time_Check(int wifi_hour,int wifi_minute,int setting_hour,int setting_minute){
 
   //判定に使う変数
   int judgement = 0;
   
-    if(wifi_time == setting_time){
+    if((wifi_hour == setting_hour)&&(wifi_minute == setting_minute)){
 
     //現在時刻と設定時間が一致したら1を返す
       judgement = 1;
