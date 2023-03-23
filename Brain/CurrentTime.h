@@ -1,8 +1,19 @@
 #pragma once
 
-class CurrentTime {
-
+class CurrentTime
+{
   private:
+<<<<<<< HEAD
+   int espNumber;
+   int realTime;
+   
+   public:
+   int Time_Check();
+   void setrealTime();
+   int send_CurrentTime();
+   
+};   
+=======
     int espNumber;            //espのピン番号
     int realTime;             //RTCのピン番号
 
@@ -17,3 +28,4 @@ class CurrentTime {
 
 
 #endif
+>>>>>>> 086bc87723080ca1f7999e8f8869c7d3a931b8dc

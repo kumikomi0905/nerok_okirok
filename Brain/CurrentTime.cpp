@@ -1,3 +1,17 @@
+<<<<<<< HEAD
+#include <Arduino.h>
+#include"CurrentTime.h"
+
+//時間比較
+CurrentTime::Time_Check(){
+  //現在時刻と各設定時間を比較
+  
+};
+//値の格納
+CurrentTime::setrealTime();
+//値の送信
+CurrentTime::send_CurrentTime();
+=======
 #include<Arduino.h>
 #include"Brain.h"
 #include"CurrentTime_h"
@@ -29,6 +43,8 @@ RTC_DS1307 RTC;
 }
 
 int CurrentTime::send_CurrentTime(){
+>>>>>>> 086bc87723080ca1f7999e8f8869c7d3a931b8dc
 
-  
-}
+//シナリオの現在時刻を確認
+//現在時刻の変数決まり次第Time_Check()で比較
+//
